@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Basic accessibility helpers */
+:focus {
+  outline: 3px solid #2563eb; /* blue ring */
+  outline-offset: 2px;
+}
