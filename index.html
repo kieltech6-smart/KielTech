@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>KielTech — Modern web solutions</title>
+  <meta name="description" content="KielTech — Modern web solutions: sites, apps, e-commerce, blog and admin tools." />
+  <meta property="og:title" content="KielTech" />
+  <meta property="og:description" content="KielTech — Modern web solutions: sites, apps, e-commerce, blog and admin tools." />
+  <link rel="alternate" type="application/rss+xml" title="KielTech RSS" href="/rss.xml" />
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+
+  <!-- Tailwind Play CDN for quick prototyping (replace with a proper build in production) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    /* Minor style overrides for a consistent focus outline */
+    :focus { outline: 3px solid #2563eb; outline-offset: 2px; }
+  </style>
+</head>
+<body class="antialiased text-slate-800 bg-white">
+  <header class="border-b bg-white">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-3">
+        <svg class="w-8 h-8 text-blue-600" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M3 12h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M12 3v18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <span class="font-bold text-xl">KielTech</span>
+      </a>
+
+      <nav class="hidden md:flex gap-6 items-center text-sm">
+        <a href="/about" class="hover:underline">About</a>
+        <a href="/blog" class="hover:underline">Blog</a>
+        <a href="/pricing" class="hover:underline">Pricing</a>
+        <a href="/search" class="hover:underline">Search</a>
+        <a href="/admin" class="px-3 py-1 rounded bg-gray-100">Admin</a>
+        <a href="/api/auth/signin" class="px-3 py-1 rounded bg-blue-600 text-white">Sign in</a>
+      </nav>
+
+      <div class="md:hidden">
+        <button aria-label="Open menu" class="p-2 rounded hover:bg-gray-100">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 py-16">
+    <!-- Hero -->
+    <section class="text-center">
+      <h1 class="text-4xl md:text-5xl font-extrabold">KielTech</h1>
+      <p class="mt-4 text-lg text-slate-600">Modern web solutions: websites, web apps, e-commerce, and developer-friendly tooling.</p>
+
+      <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="/pricing" class="px-6 py-3 bg-blue-600 text-white rounded shadow">Get started</a>
+        <a href="/blog" class="px-6 py-3 border rounded">Read our blog</a>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
+      <article class="p-6 border rounded">
+        <h3 class="font-semibold">Fast & Accessible</h3>
+        <p class="mt-2 text-sm text-slate-600">Built with performance and accessibility in mind — keyboard friendly, semantic markup, and good defaults.</p>
+      </article>
+
+      <article class="p-6 border rounded">
+        <h3 class="font-semibold">Auth & Admin</h3>
+        <p class="mt-2 text-sm text-slate-600">NextAuth skeleton for authentication and a protected admin dashboard ready to extend.</p>
+      </article>
+
+      <article class="p-6 border rounded">
+        <h3 class="font-semibold">Payments & Contact</h3>
+        <p class="mt-2 text-sm text-slate-600">Stripe checkout integration and a contact form API route for lead captures.</p>
+      </article>
+    </section>
+
+    <!-- Pricing teaser -->
+    <section class="mt-12">
+      <h2 class="text-2xl font-semibold">Starter plan</h2>
+      <div class="mt-4 max-w-md border rounded p-6">
+        <div class="flex items-baseline gap-2">
+          <span class="text-3xl font-bold">$49</span>
+          <span class="text-sm text-slate-500">one-time</span>
+        </div>
+        <p class="mt-3 text-sm text-slate-600">Includes a starter site, blog, and basic admin tools. Add-ons available.</p>
+        <div class="mt-6">
+          <button id="buy-btn" class="px-4 py-2 bg-green-600 text-white rounded">Buy Starter</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Search -->
+    <section class="mt-12">
+      <h2 class="text-lg font-medium">Quick search</h2>
+      <form id="search-form" class="mt-3 flex gap-2 max-w-2xl">
+        <label for="q" class="sr-only">Search query</label>
+        <input id="q" name="q" type="search" class="flex-1 rounded border px-3 py-2" placeholder="Search posts, e.g. 'launch'..." />
+        <button type="submit" class="px-4 py-2 bg-slate-700 text-white rounded">Search</button>
+      </form>
+      <div id="search-results" class="mt-4"></div>
+    </section>
+
+    <!-- Contact form -->
+    <section class="mt-12">
+      <h2 class="text-lg font-medium">Contact us</h2>
+      <p class="text-sm text-slate-600 mt-1">Send a message and we'll get back to you.</p>
+
+      <form id="contact-form" class="mt-4 max-w-xl grid gap-3">
+        <label class="block">
+          <span class="text-sm">Name</span>
+          <input id="name" name="name" required class="mt-1 block w-full rounded border px-3 py-2" />
+        </label>
+
+        <label class="block">
+          <span class="text-sm">Email</span>
+          <input id="email" name="email" type="email" required class="mt-1 block w-full rounded border px-3 py-2" />
+        </label>
+
+        <label class="block">
+          <span class="text-sm">Message</span>
+          <textarea id="message" name="message" rows="5" required class="mt-1 block w-full rounded border px-3 py-2"></textarea>
+        </label>
+
+        <div>
+          <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded">Send</button>
+          <span id="contact-status" class="ml-3 text-sm"></span>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <footer class="border-t bg-gray-50">
+    <div class="max-w-6xl mx-auto px-4 py-6 text-sm text-slate-600 flex flex-col md:flex-row justify-between items-center gap-3">
+      <div>© <span id="year"></span> KielTech</div>
+      <div class="flex gap-4">
+        <a href="/privacy" class="hover:underline">Privacy</a>
+        <a href="/terms" class="hover:underline">Terms</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Fill current year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Contact form submission -> POST to /api/contact
+    document.getElementById('contact-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const statusEl = document.getElementById('contact-status');
+      statusEl.textContent = 'Sending…';
+      const payload = {
+        name: document.getElementById('name').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        message: document.getElementById('message').value.trim()
+      };
+
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        if (res.ok) {
+          statusEl.textContent = 'Message sent!';
+          document.getElementById('contact-form').reset();
+        } else {
+          const err = await res.json().catch(()=>({ error: 'Unknown' }));
+          statusEl.textContent = 'Error sending message.';
+          console.error('Contact error', err);
+        }
+      } catch (err) {
+        statusEl.textContent = 'Error sending message.';
+        console.error(err);
+      }
+    });
+
+    // Simple search behavior: redirect to /search?q=... and also show inline results (optional)
+    document.getElementById('search-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const q = document.getElementById('q').value.trim();
+      if (!q) return;
+
+      // Navigate to dedicated search page (preserves server-side search page)
+      window.location.href = '/search?q=' + encodeURIComponent(q);
+    });
+
+    // Buy button -> call server to create checkout session and redirect
+    document.getElementById('buy-btn').addEventListener('click', async () => {
+      try {
+        const res = await fetch('/api/create-checkout-session', { method: 'POST' });
+        if (!res.ok) throw new Error('Failed to create checkout session');
+        const { url } = await res.json();
+        if (url) window.location.href = url;
+      } catch (err) {
+        alert('Unable to start checkout. See console for details.');
+        console.error(err);
+      }
+    });
+  </script>
+</body>
+</html>
